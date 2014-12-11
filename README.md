@@ -34,7 +34,9 @@ Evaluation count : 144 in 6 samples of 24 calls.
 
 ## Haskell
 
-### Simple, small template, parsing on the fly
+### GHC, Optimized
+
+##### Simple, small template, parsing on the fly
 
 ```
 benchmarking parse and render small
@@ -44,7 +46,7 @@ mean                 992.9 ns   (989.9 ns .. 997.1 ns)
 std dev              11.32 ns   (8.423 ns .. 14.55 ns)
 ```
 
-### Rendering pre-parsed template
+##### Rendering pre-parsed template
 
 ```
 benchmarking render small
@@ -54,7 +56,7 @@ mean                 7.833 ns   (7.814 ns .. 7.858 ns)
 std dev              72.91 ps   (57.84 ps .. 105.1 ps)
 ```
 
-### Big template, parsing on the fly
+##### Big template, parsing on the fly
 
 ```
 benchmarking parse and render big
@@ -65,7 +67,7 @@ std dev              1.492 μs   (1.116 μs .. 1.986 μs)
 variance introduced by outliers: 10% (moderately inflated)
 ```
 
-### Rendering pre-parsed big template
+##### Rendering pre-parsed big template
 
 ```
 benchmarking render big
@@ -75,3 +77,5 @@ mean                 7.861 ns   (7.833 ns .. 7.898 ns)
 std dev              111.0 ps   (83.60 ps .. 158.8 ps)
 variance introduced by outliers: 18% (moderately inflated)
 ```
+
+### GHCi, interpreted, no optimizations
