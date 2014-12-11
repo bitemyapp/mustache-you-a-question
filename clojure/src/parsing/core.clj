@@ -5,7 +5,7 @@
             [criterium.core :refer :all]))
 
  
-(def parse (p/parser :blat #{["{{" #"[a-zA-Z_\-]*" "}}"]}))
+(def parse (p/parser {:main :blat*} :blat #{["{{" #"[a-zA-Z_\-]*" "}}"]}))
  
 (defmulti render-node (fn [node _] (:tag node)))
  
@@ -25,7 +25,7 @@
 
 (def template-string "Hello, {{name}}, so nice to see you.")
 
-(def big-string (apply str (repeat 10000 template-string)))
+(def big-string (apply str (repeat 1000 template-string)))
 
 (defn render-template [tmpl-str]
    (render tmpl-str {"name" "Guy"}))

@@ -11,6 +11,7 @@ import Data.Text (Text)
 import qualified Data.Text.IO as TIO
 import Data.Map.Lazy (Map)
 import qualified Data.Map.Lazy as M
+import qualified Data.Vector as V
 
 newtype Var = Var Text deriving Show
 
@@ -36,12 +37,23 @@ parseNode = TextNode <$> takeWhile1 (/= '{')
 parseStream :: Parser [Node]
 parseStream = many $ (parseNode <|> (VarNode <$> parseVar))
 
+parseVector :: Parser (V.Vector Node)
+parseVector = do
+  results <- many $ (parseNode <|> (VarNode <$> parseVar))
+  return (V.fromList results)
+
 renderNode :: Context -> Node -> Text
 renderNode ctx (VarNode (Var name)) = fromMaybe "" (M.lookup name ctx)
 renderNode ctx (TextNode txt) = txt
 
 render :: Context -> [Node] -> Text
 render context nodes = foldr
+       (\node extant ->
+         mappend (renderNode context node) extant)
+         "" nodes
+
+renderV :: Context -> V.Vector Node -> Text
+renderV context nodes = V.foldr
        (\node extant ->
          mappend (renderNode context node) extant)
          "" nodes
